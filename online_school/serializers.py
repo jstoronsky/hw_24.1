@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from online_school.models import Course, Lesson, Payment
+from users.models import User
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -26,3 +27,11 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
+
+
+class UserPaymentsSerializer(serializers.ModelSerializer):
+    payments = PaymentSerializer(source='payment_set', many=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'city', 'phone_number', 'payments']

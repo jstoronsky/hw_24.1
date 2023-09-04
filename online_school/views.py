@@ -2,8 +2,9 @@ from django.shortcuts import render
 from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
 from django_filters import rest_framework
-from online_school.serializers import CourseSerializer, LessonSerializer, PaymentSerializer
+from online_school.serializers import CourseSerializer, LessonSerializer, PaymentSerializer, UserPaymentsSerializer
 from online_school.models import Course, Lesson, Payment
+from users.models import User
 
 
 # Create your views here.
@@ -49,3 +50,15 @@ class PaymentListAPIView(generics.ListAPIView):
 
 class PaymentDeleteAPIView(generics.DestroyAPIView):
     queryset = Payment.objects.all()
+
+
+class UserPaymentsListAPIView(generics.ListAPIView):
+    serializer_class = UserPaymentsSerializer
+    queryset = User.objects.all()
+
+
+class UserPaymentsRetrieveAPIView(generics.RetrieveAPIView):
+    serializer_class = UserPaymentsSerializer
+    queryset = User.objects.all()
+
+

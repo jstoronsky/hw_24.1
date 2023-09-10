@@ -87,5 +87,3 @@ class UserPaymentsRetrieveAPIView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated,  IsModerator | IsSuperUser]
     serializer_class = UserPaymentsSerializer
     queryset = User.objects.all()
-
-

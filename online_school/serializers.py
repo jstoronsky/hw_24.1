@@ -10,8 +10,8 @@ class LessonSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    count_lessons = serializers.IntegerField(source='lesson_set.count')
-    lessons = LessonSerializer(source='lesson_set', many=True)
+    count_lessons = serializers.IntegerField(source='lesson_set.count', read_only=True)
+    lessons = LessonSerializer(source='lesson_set', many=True, read_only=True)
 
     # @staticmethod
     # def get_count_lessons(obj):
@@ -19,7 +19,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ['id', 'name', 'preview', 'description', 'count_lessons', 'lessons']
+        fields = ['id', 'name', 'preview', 'description', 'added_by', 'count_lessons', 'lessons']
 
 
 class PaymentSerializer(serializers.ModelSerializer):

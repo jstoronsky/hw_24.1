@@ -7,6 +7,7 @@ class Course(models.Model):
     name = models.CharField(max_length=250, verbose_name='название')
     preview = models.ImageField(upload_to='course/', verbose_name='превью', **NULLABLE)
     description = models.TextField(verbose_name='описание')
+    added_by = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='добавил', **NULLABLE)
 
     def __str__(self):
         return self.name
@@ -22,6 +23,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='описание')
     video_link = models.CharField(max_length=250, verbose_name='ссылка', **NULLABLE)
     course = models.ForeignKey('Course', on_delete=models.CASCADE, verbose_name='курс', **NULLABLE)
+    added_by = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='добавил', **NULLABLE)
 
     def __str__(self):
         return self.name
@@ -47,7 +49,7 @@ class Payment(models.Model):
     payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES, verbose_name='способ оплаты')
 
     def __str__(self):
-        return f'{date_of_payment} - {sum_of_payment}'
+        return f'{self.date_of_payment} - {self.sum_of_payment}'
 
     class Meta:
         verbose_name = 'платёж'

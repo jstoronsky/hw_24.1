@@ -22,9 +22,9 @@ class CourseViewSet(viewsets.ModelViewSet):
             self.permission_classes = [IsAuthenticated,  IsModerator | IsSuperUser | IsOwner]
 
         elif self.action == 'create':
-            self.permission_classes = [~IsModerator]
+            self.permission_classes = [IsAuthenticated, ~IsModerator]
 
-        elif self.action in ['create', 'destroy']:
+        elif self.action == 'destroy':
             self.permission_classes = [IsAuthenticated, IsSuperUser]
 
         return super(CourseViewSet, self).get_permissions()

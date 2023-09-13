@@ -2,7 +2,7 @@ from online_school.apps import OnlineSchoolConfig
 from rest_framework.routers import DefaultRouter
 from online_school.views import CourseViewSet, LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, \
     LessonUpdateAPIView, LessonDeleteAPIView, PaymentCreateAPIView, PaymentListAPIView, PaymentDeleteAPIView, \
-    UserPaymentsListAPIView, UserPaymentsRetrieveAPIView
+    SubscriptionCreateAPIView, SubscriptionDeleteAPIView, SubscriptionUpdateAPIView, SubscriptionListAPIView
 from django.urls import path
 
 
@@ -20,6 +20,9 @@ urlpatterns = [
     path('payment/create/', PaymentCreateAPIView.as_view(), name='payment_create'),
     path('payments/', PaymentListAPIView.as_view(), name='payments'),
     path('payment/delete/<int:pk>/', PaymentDeleteAPIView.as_view(), name='payment_delete'),
-    path('users/', UserPaymentsListAPIView.as_view(), name='users'),
-    path('user_payments/<int:pk>/', UserPaymentsRetrieveAPIView.as_view(), name='user_payments')
+
+    path('subscription/create/', SubscriptionCreateAPIView.as_view(), name='subscription_create'),
+    path('subscription/delete/<int:pk>/', SubscriptionDeleteAPIView.as_view(), name='subscription_delete'),
+    path('subscription/update/<int:pk>/', SubscriptionUpdateAPIView.as_view(), name='subscription_update'),
+    path('subscriptions/', SubscriptionListAPIView.as_view(), name='subscriptions'),
               ] + router.urls

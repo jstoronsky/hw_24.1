@@ -47,7 +47,7 @@ class Payment(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='пользователь')
     course = models.ForeignKey('Course', on_delete=models.CASCADE, verbose_name='оплаченный курс')
     payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES, verbose_name='способ оплаты')
-    payment_url = models.TextField(verbose_name='ссылка на оплату', **NULLABLE)
+    payment_url = models.CharField(max_length=500, verbose_name='ссылка на оплату', **NULLABLE)
 
     def __str__(self):
         return f'{self.date_of_payment} - {self.sum_of_payment}'

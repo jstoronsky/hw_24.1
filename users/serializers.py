@@ -5,7 +5,7 @@ from online_school.models import Subscription
 
 
 class UsersSerializer(serializers.ModelSerializer):
-    payments = PaymentSerializer(source='payment_set', many=True)
+    payments = PaymentSerializer(source='payment_set', many=True, read_only=True)
     subscriptions = SubscriptionSerializer(many=True, read_only=True)
 
     class Meta:

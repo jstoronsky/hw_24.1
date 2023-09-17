@@ -8,23 +8,35 @@ from users.serializers import UsersSerializer, UserCreateSerializer
 
 # Create your views here.
 class UsersListAPIView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated,  IsModerator | IsSuperUser]
+    """
+    Эндпоинт для спискового отображения пользователей
+    """
+    # permission_classes = [IsAuthenticated,  IsModerator | IsSuperUser]
     serializer_class = UsersSerializer
     queryset = User.objects.all()
 
 
 class UserCreateAPIView(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated, IsSuperUser]
-    serializer_class = UserCreateSerializer
+    """
+    Эндпоинт для создания пользователя
+    """
+    # permission_classes = [IsAuthenticated, IsSuperUser]
+    serializer_class = UsersSerializer
 
 
 class UserUpdateAPIVIew(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated, IsSuperUser]
+    """
+    Эндпоинт для обновления пользователя
+    """
+    # permission_classes = [IsAuthenticated, IsSuperUser]
     serializer_class = UserCreateSerializer
     queryset = User.objects.all()
 
 
 class UsersRetrieveAPIView(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated,  IsModerator | IsSuperUser]
+    """
+    Эндпоинт для просмотра конкретного пользователя
+    """
+    # permission_classes = [IsAuthenticated,  IsModerator | IsSuperUser]
     serializer_class = UsersSerializer
     queryset = User.objects.all()

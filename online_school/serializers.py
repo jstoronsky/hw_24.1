@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from online_school.models import Course, Lesson, Payment, Subscription
 from online_school.validators import VideoLinkValidator
-from users.models import User
+import stripe
+stripe.api_key = 'sk_test_51NrIuYEr4bPb9axLqE4JA5i65jeKiqFMIenTkPJpqY8e2ngTKGjrpl5I4pEq5V1iTB2yiFP3TuImcneVz6k3461u00Ifn7stOf'
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -53,6 +54,33 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
+
+
+class PaymentCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Payment
+        fields = '__all__'
+
+    def create(self, validated_data):
+        product = stripe.Product.create(name=validated_data['course'].name)
+        price = stripe.Price.create(unit_amount=validated_data['sum_of_payment'], currency="usd",
+                                    recurring={"interval": "month"}, product=product['id'])
+        checkout = stripe.checkout.Session.create(
+            success_url="https://example.com/success",
+            line_items=[
+                {
+                    "price": price['id'],
+                    "quantity": 1,
+                },
+            ],
+            mode="subscription",
+        )
+        validated_data['payment_url'] = checkout['url']
+        payment = Payment.objects.create(**validated_data)
+
+        return payment
+
 
 
 

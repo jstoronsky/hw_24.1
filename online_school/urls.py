@@ -8,21 +8,21 @@ from django.urls import path
 
 app_name = OnlineSchoolConfig.name
 router = DefaultRouter()
-router.register(r'course', CourseViewSet, basename='course')
+router.register(r'courses', CourseViewSet, basename='courses')
 
 urlpatterns = [
-    path('lesson/create/', LessonCreateAPIView.as_view(), name='lesson_create'),
+    path('lessons/create/', LessonCreateAPIView.as_view(), name='lesson_create'),
     path('lessons/', LessonListAPIView.as_view(), name='lessons'),
-    path('lesson/<int:pk>/', LessonRetrieveAPIView.as_view(), name='lesson'),
-    path('lesson/update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson_update'),
-    path('lesson/delete/<int:pk>/', LessonDeleteAPIView.as_view(), name='lesson_delete'),
+    path('lessons/<int:pk>/', LessonRetrieveAPIView.as_view(), name='lesson'),
+    path('lessons/update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson_update'),
+    path('lessons/delete/<int:pk>/', LessonDeleteAPIView.as_view(), name='lesson_delete'),
 
-    path('payment/create/', PaymentCreateAPIView.as_view(), name='payment_create'),
+    path('payments/create/', PaymentCreateAPIView.as_view(), name='payment_create'),
     path('payments/', PaymentListAPIView.as_view(), name='payments'),
-    path('payment/delete/<int:pk>/', PaymentDeleteAPIView.as_view(), name='payment_delete'),
+    path('payments/delete/<int:pk>/', PaymentDeleteAPIView.as_view(), name='payment_delete'),
 
-    path('subscription/create/', SubscriptionCreateAPIView.as_view(), name='subscription_create'),
-    path('subscription/delete/<int:pk>/', SubscriptionDeleteAPIView.as_view(), name='subscription_delete'),
-    path('subscription/update/<int:pk>/', SubscriptionUpdateAPIView.as_view(), name='subscription_update'),
+    path('subscriptions/create/', SubscriptionCreateAPIView.as_view(), name='subscription_create'),
+    path('subscriptions/delete/<int:pk>/', SubscriptionDeleteAPIView.as_view(), name='subscription_delete'),
+    path('subscriptions/update/<int:pk>/', SubscriptionUpdateAPIView.as_view(), name='subscription_update'),
     path('subscriptions/', SubscriptionListAPIView.as_view(), name='subscriptions'),
               ] + router.urls

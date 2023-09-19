@@ -10,6 +10,7 @@ from online_school.models import Course, Lesson, Payment, Subscription
 from online_school.permissions import IsModerator, IsSuperUser, IsOwner
 from online_school.paginators import LessonPaginator, CoursePaginator
 import stripe
+from online_school.tasks import send_updated_info
 
 stripe.api_key = 'sk_test_51NrIuYEr4bPb9axLqE4JA5i65jeKiqFMIenTkPJpqY8e2ngTKGjrpl5I4pEq5V1iTB2yiFP3TuImcneVz6k3461u00Ifn7stOf'
 
@@ -24,38 +25,41 @@ class CourseViewSet(viewsets.ModelViewSet):
         """
         Эндпоинт для создания курса
         """
-        pass
+        return super().create(request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
         """
         Эндпоинт для спискового отображения курсов
         """
-        pass
+        return super().list(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
         """
         Эндпоинт для просмотра конктретного курса
         """
-        pass
+        return super().retrieve(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
         """
         Эндпоинт для обновления курса
         """
-        pass
+        return super().update(request, *args, **kwargs)
 
     def partial_update(self, request, *args, **kwargs):
         """
         Эндпоинт для обновления курса
         """
-        pass
+        return super().partial_update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
         """
         Эндпоинт для удаления курса
         """
-        pass
+        return super().destroy(request, *args, **kwargs)
 
+    def perform_update(self, serializer):
+        course = serializer.save()
+        send_updated_info.delay(course.pk)
 
     # def get_permissions(self):
     #     if self.action == 'list':

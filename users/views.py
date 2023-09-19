@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from online_school.permissions import IsModerator, IsSuperUser
 from users.models import User
 from users.serializers import UsersSerializer, UserCreateSerializer
+from django.contrib.auth.models import update_last_login
 
 
 # Create your views here.
